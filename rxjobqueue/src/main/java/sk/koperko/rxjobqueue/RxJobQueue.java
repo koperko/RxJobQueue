@@ -25,6 +25,8 @@ public class RxJobQueue<T> {
     private Subscription mMainSubscription;
 
     public RxJobQueue(int consumerCount) {
+        if (consumerCount < 1)
+            throw new IllegalArgumentException("Consumer count needs to be positive integer. Passed consumerCount: " + consumerCount);
         mConsumerCount = consumerCount;
         mQueueObservable = mConsumerSubject.flatMap(ConnectableObservable::autoConnect);
     }
