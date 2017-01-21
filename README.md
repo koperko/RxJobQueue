@@ -47,9 +47,28 @@ public class MyJob extends Job<MyResultType> {
 ```
 [RetryWhen](http://reactivex.io/documentation/operators/retry.html) operator documentation
 
+### Push job instances
+```java
+Observable<MyResultType> resultObservable = queue.push(new MyJob(1));
+// Note: This subscription does not fire the job execution. It is hot observable and just observes for job result. Management of its execution relies solely on the queue itself.
+result.subscribe((result) -> {
+   // Yaay! We have our result here ..  
+});
+
+queue.start();
+
+...
+
+queue.stop();
+```
+You can push jobs to the queue before or after `start()` method has been called. The queue just accumulates items until you call `start()` which initializes consumers.
+
+--
+
 ### Todo list
 - [ ] serializable jobs
 - [ ] job dependencies
 - [ ] waiting for network
 - [ ] switch to RxJava 2.x
 - [ ] design consumers that take advantage of rx 'Scheduler' and allow users to specify
+- [ ] better consumer management
