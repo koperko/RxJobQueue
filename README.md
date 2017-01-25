@@ -67,6 +67,7 @@ You can push jobs to the queue before or after `start()` method has been called.
 
 ### Todo list
 - [ ] serializable jobs
+- [ ] tests
 - [ ] job dependencies
 - [ ] waiting for network
 - [ ] switch to RxJava 2.x
